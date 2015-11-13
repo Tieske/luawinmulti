@@ -7,17 +7,36 @@ if "%BEFORE_LUA_PATH_BACKUP%"=="" (
    set "PATH=%BEFORE_LUA_PATH_BACKUP%"
 )
 SET myownpath=%~dp0
-IF "%1"=="51" goto VersionOK
-IF "%1"=="52" goto VersionOK
-IF "%1"=="53" goto VersionOK
-IF "%1"=="" goto NoVersion
+IF [%1]==[] goto NoVersion
+IF [%1]==[51] goto VersionOK
+IF [%1]==[52] goto VersionOK
+IF [%1]==[53] goto VersionOK
+IF [%1]==[--help] GOTO Help
+IF [%1]==[-help] GOTO Help
+IF [%1]==[help] GOTO Help
+IF [%1]==[--?] GOTO Help
+IF [%1]==[-?] GOTO Help
+IF [%1]==[?] GOTO Help
+IF [%1]==[/?] GOTO Help
 
+echo Error: unknown commandline argument '%1'. Use '%~n0 --help' for usage information.
+exit /b 1
+
+:Help
+echo Will setup the environment for the Lua installation, system path and Lua paths. If a 
+echo Lua version is provided, it will be set as the unversioned default version.
+echo.
 echo Usage:
 echo    %~n0 ^<LuaVersion^>
 echo Where the optional LuaVersion is any of; 51, 52, or 53
-exit /b 1
+echo.
+exit /b
 
 :VersionOK
+if not exist "%myownpath%\lua%1.exe" (
+  echo Error: "%myownpath%\lua%1.exe" not found, make sure the version is installed before setting it.
+  exit /b 1
+)
 copy "%myownpath%\lua%1.exe" "%myownpath%\lua.exe"
 Echo Done. Installed lua%1.exe as lua.exe.
 REM create wrapper to LuaRocks
