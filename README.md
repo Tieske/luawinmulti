@@ -5,15 +5,45 @@ This batchfile will download, compile and configure a Lua installation with
 versions 5.1, 5.2, and 5.3 in parallel. Including the accompanying 
 LuaRocks package manager for each version.
 
-Instructions
-============
-
-1. Download an unpack in a temporary directory
-2. Customize the target locations (Lua and LuaRocks) in `make.bat`
-3. Run `make.bat` (if target locations require it, use Admin rights)
+Command
+=======
 
 Note: Make sure you have a compiler in your path (MinGW or for the MS compilers, 
 call `make.bat` from the commandshell)
+
+````
+Command:
+  MAKE [--clean] [--cleantarget] [--nocompat] [--51] [--52] [--53] [install [<location>]]
+
+  --51, --52, --53   : specify the versions to install, default is to install
+                       all versions. Applies only to installing, all versions will be
+                       build independent of this option.
+                       The first version listed will be set as the unversioned default.
+  --clean            : removes downloaded and build artifacts, forcing a rebuild
+  --cleantarget      : removes the target directory before installing. NOTE: the LuaRocks
+                       installation will ALWAYS be removed, independent of this option!
+  --nocompat         : build Lua without compatibility options. NOTE: this option
+                       will not automatically clean. So clean when switching compatibility.
+  install <location> : will install (and build if necessary) the Lua versions. Default
+                       location is 'C:\Lua'
+
+  --help             : Display this help text
+
+Example: the following commands, executed after each other will;
+  make install
+                 Will download, build and install 3 Lua versions in 'C:\Lua', 5.1 will
+                 be set as the default.
+
+  make --51 --52 install C:\lua2
+                 Will only install (no rebuild, binaries allready exist) 5.1 and 5.2 in
+                 'C:\Lua2'. 5.1 will be set as the default.
+
+  make --clean --53 --nocompat install C:\Lua_NoCompat
+                 Will download and build all versions again, without compatibility options,
+                 and then install only 5.3 in 'C:\Lua_NoCompat'. 5.3 will be set as the
+                 default.
+````
+
 
 
 What it does
