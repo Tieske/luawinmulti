@@ -1,13 +1,6 @@
 @echo off
 
-REM Save the original path in case this file is called more than once
-if "%BEFORE_LUA_PATH_BACKUP%"=="" (
-   set "BEFORE_LUA_PATH_BACKUP=%PATH%"
-) else (
-   set "PATH=%BEFORE_LUA_PATH_BACKUP%"
-)
-SET myownpath=%~dp0
-IF [%1]==[] goto NoVersion
+IF [%1]==[] goto VersionOK
 IF [%1]==[51] goto VersionOK
 IF [%1]==[52] goto VersionOK
 IF [%1]==[53] goto VersionOK
@@ -33,20 +26,28 @@ echo.
 exit /b
 
 :VersionOK
-if not exist "%myownpath%\lua%1.exe" (
-  echo Error: "%myownpath%\lua%1.exe" not found, make sure the version is installed before setting it.
-  exit /b 1
+SET myownpath=%~dp0
+REM Save the original path in case this file is called more than once
+if "%BEFORE_LUA_PATH_BACKUP%"=="" (
+   set "BEFORE_LUA_PATH_BACKUP=%PATH%"
+) else (
+   set "PATH=%BEFORE_LUA_PATH_BACKUP%"
 )
-copy "%myownpath%\lua%1.exe" "%myownpath%\lua.exe"
-Echo Done. Installed lua%1.exe as lua.exe.
-REM create wrapper to LuaRocks
-ECHO @ECHO OFF                          >  "%~dp0luarocks.bat"
-ECHO SETLOCAL                           >> "%~dp0luarocks.bat"
-ECHO CALL "%%~dpn0%1.bat" %%*           >> "%~dp0luarocks.bat"
-ECHO exit /b %%ERRORLEVEL%%             >> "%~dp0luarocks.bat"
-Echo Done. Installed luarocks%1.bat as luarocks.bat.
 
-:NoVersion
+IF not [%1]==[] (
+  if not exist "%myownpath%\lua%1.exe" (
+    echo Error: "%myownpath%\lua%1.exe" not found, make sure the version is installed before setting it.
+    exit /b 1
+  )
+  copy "%myownpath%\lua%1.exe" "%myownpath%\lua.exe"
+  Echo Done. Installed lua%1.exe as lua.exe.
+  REM create wrapper to LuaRocks
+  ECHO @ECHO OFF                          >  "%~dp0luarocks.bat"
+  ECHO SETLOCAL                           >> "%~dp0luarocks.bat"
+  ECHO CALL "%%~dpn0%1.bat" %%*           >> "%~dp0luarocks.bat"
+  ECHO exit /b %%ERRORLEVEL%%             >> "%~dp0luarocks.bat"
+  Echo Done. Installed luarocks%1.bat as luarocks.bat.
+)
 
 REM setup system path
 set path=%myownpath%;%PATH%
@@ -62,3 +63,4 @@ set LUA_CPATH_5_3=;;
 
 :cleanup
 set myownpath=
+exit /b
