@@ -52,14 +52,14 @@ IF not [%1]==[] (
 REM setup system path
 set path=%myownpath%;%PATH%
 REM setup Lua paths for 5.1
-set LUA_PATH=;;%myownpath%\..\lib\lua\5.1\?.dll
-set LUA_CPATH=;;%myownpath%\..\share\lua\5.1\?.lua;%myownpath%\..\share\lua\5.1\?\init.lua
+set LUA_CPATH=;;%myownpath%\..\lib\lua\5.1\?.dll
+set LUA_PATH=;;%myownpath%\..\share\lua\5.1\?.lua;%myownpath%\..\share\lua\5.1\?\init.lua
 REM setup Lua paths for 5.2
-set LUA_PATH_5_2=;;%myownpath%\..\lib\lua\5.2\?.dll
-set LUA_CPATH_5_2=;;%myownpath%\..\share\lua\5.2\?.lua;%myownpath%\..\share\lua\5.2\?\init.lua
+set LUA_CPATH_5_2=;;%myownpath%\..\lib\lua\5.2\?.dll
+set LUA_PATH_5_2=;;%myownpath%\..\share\lua\5.2\?.lua;%myownpath%\..\share\lua\5.2\?\init.lua
 REM setup Lua paths for 5.3, defaults will do, but we need to set something to prevent the LUA_PATH from overruling
-set LUA_PATH_5_3=;;
 set LUA_CPATH_5_3=;;
+set LUA_PATH_5_3=;;
 
 :cleanup
 set myownpath=

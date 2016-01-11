@@ -6,7 +6,8 @@ REM  ***************  CUSTOMIZATION SECTION  *********************
 REM relative nameparts with source code
 SET LUA51=lua-5.1.5
 SET LUA52=lua-5.2.4
-SET LUA53=lua-5.3.1
+SET LUA53=lua-5.3.2
+SET LRVERSION=2.3.0
 
 REM Archive suffix to use for all downloads
 SET DL_SUFFIX=.tar.gz
@@ -18,8 +19,8 @@ SET DL_LUAWINMAKE=https://github.com/Tieske/luawinmake/archive/master
 SET LUAWINMAKE_TOPFOLDER=luawinmake-master
 
 REM LuaRocks url and top folder name
-SET DL_LUAROCKS=https://github.com/keplerproject/luarocks/archive/master
-SET LUAROCKS_TOPFOLDER=luarocks-master
+SET DL_LUAROCKS=https://github.com/keplerproject/luarocks/archive/v%LRVERSION%
+SET LUAROCKS_TOPFOLDER=luarocks-%LRVERSION%
 
 REM  ***************  NOTHING TO CUSTOMIZE BELOW  *********************
 
@@ -33,7 +34,7 @@ echo start cleaning...
   RMDIR /S /Q "lua-5.3"
   RMDIR /S /Q "luawinmake"
   RMDIR /S /Q "luarocks"
-echo done cleaning...
+  echo done cleaning...
 ) else (
   if not [%1]==[] (
     echo.
@@ -77,7 +78,7 @@ if not exist lua-5.1\*.* (
   echo Skipping Lua 5.1 download, directory already exists
 )
 
-if not exist lua-5.3\*.* (
+if not exist lua-5.2\*.* (
   tools\wget --no-check-certificate --output-document=%LUA52%%DL_SUFFIX% %DL_PREFIX%%LUA52%%DL_SUFFIX%
   tools\7z x -y %LUA52%.tar.gz
   tools\7z x -y %LUA52%.tar
