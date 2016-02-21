@@ -5,11 +5,15 @@ This batchfile will download, compile and configure a Lua installation with
 versions 5.1, 5.2, and 5.3 in parallel. Including the accompanying 
 LuaRocks package manager for each version.
 
+Prerequisites
+=============
+Make sure you have a compiler in your path;
+
+ - MinGW in your system path (msys is not required)
+ - for MS compilers, call `make.bat` from the Visual Studio (or Win SDK) commandshell
+
 Command
 =======
-
-Note: Make sure you have a compiler in your path (MinGW or for the MS compilers, 
-call `make.bat` from the commandshell)
 
 ````
 Command:
