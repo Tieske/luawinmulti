@@ -54,7 +54,7 @@ What it does
 ============
 
 - Downloads and unpacks sources of LuaRocks, LuaWinmake (used for building), and Lua
-- Compiles the Lua versions from source (using [LuaWinMake](https://github.com/Tieske/luawinmake)
+- Compiles the Lua versions from source (using [LuaWinMake](https://github.com/Tieske/luawinmake))
 - Installs the Lua versions (versioned; using the LuaWinMake command `installv`)
 - Installs LuaRocks for each version
 - default Lua version will be set to Lua 5.1 (see `setlua` below)
@@ -63,9 +63,9 @@ What it does
 Usage
 =====
 
-Each Lua version will have its own executable; lua51.exe, lua52.exe and 
-lua53.exe. And for LuaRocks 3 batchfiles will be generated; luarocks51.bat,
-luarocks52.bat, and luarocks53.bat
+Each Lua version will have its own executable; `lua51.exe`, `lua52.exe`, and 
+`lua53.exe`. And for LuaRocks 3 batchfiles will be generated; `luarocks51.bat`,
+`luarocks52.bat`, and `luarocks53.bat`.
 
 The luarocks batch files will be in the same directory as the lua executables, so
 only the Lua path has to be added to the system path.
