@@ -13,6 +13,8 @@ SET VERSION53=
 SET CLEAN=
 SET CLEANTARGET=
 SET DEFAULT=
+SET TOOLCHAIN=
+SET LRCOMPILER=
 
 :HandleParameter
 IF [%1]==[] GOTO Continue
@@ -36,6 +38,16 @@ if [%1]==[--cleantarget] (
 )
 if [%1]==[--nocompat] (
   set COMPAT=--nocompat
+  SHIFT
+  GOTO HandleParameter
+)
+if [%1]==[--gcc] (
+  set TOOLCHAIN=GCC
+  SHIFT
+  GOTO HandleParameter
+)
+if [%1]==[--ms] (
+  set TOOLCHAIN=MS
   SHIFT
   GOTO HandleParameter
 )
@@ -81,7 +93,7 @@ echo Commandline script to download and install Lua 5.1, 5.2 and 5.3 with a LuaR
 echo A 'setlua' script is made available to setup the environment for each version.
 echo.
 echo Usage:
-echo   MAKE [--clean] [--cleantarget] [--nocompat] [--51] [--52] [--53] [install [^<location^>]]
+echo   MAKE [--clean] [--cleantarget] [--nocompat] [--51] [--52] [--53] [--ms^|gcc] [install [^<location^>]]
 echo.
 echo   --51, --52, --53   : specify the versions to install, default is to install
 echo                        all versions. Applies only to installing, all versions will be
@@ -92,6 +104,8 @@ echo   --cleantarget      : removes the target directory before installing. NOTE
 echo                        installation will ALWAYS be removed, independent of this option!
 echo   --nocompat         : build Lua without compatibility options. NOTE: this option
 echo                        will not automatically clean. So clean when switching compatibility.
+echo   --ms^|gcc           : force usage of either Microsoft (--ms) or gcc (--gcc) toolchain, if
+echo                        not provided it will be auto-detected.
 echo   install ^<location^> : will install (and build if necessary) the Lua versions. Default 
 echo                        location is 'C:\Lua'
 echo.
@@ -121,8 +135,10 @@ if [%ALLVERSIONS%]==[TRUE] (
   SET DEFAULT=51
 )
 
-REM Commands which, if exiting without error, indicate presence of the MinGW/gcc toolchain
+REM Commands which, if exiting without error, indicate presence of the toolchain
 SET CHECK_GCC=gcc --version
+SET CHECK_MS=cl /help ^> %TEMP%\NULL
+
 SET LRTARGET=%TARGET%\LuaRocks
 SET MAKE=luawinmake
 
@@ -130,6 +146,34 @@ REM Cleanup first
 if not [%CLEANTARGET%]==[] (
   RMDIR /S /Q "%LRTARGET%"
   RMDIR /S /Q "%TARGET%"
+)
+
+if not [%TOOLCHAIN%]==[] goto TOOLCHAIN_SET
+REM Auto-detect compiler
+Echo Testing for Microsoft toolchain...
+%CHECK_MS%
+IF %ERRORLEVEL%==0 (
+  echo Found Microsoft toolchain
+  SET TOOLCHAIN=MS
+  goto TOOLCHAIN_SET
+)
+Echo Testing for GCC...
+%CHECK_GCC%
+IF %ERRORLEVEL%==0 (
+  SET TOOLCHAIN=GCC
+  echo Found gcc toolchain
+  goto TOOLCHAIN_SET
+)
+echo No toolchain detected, defaulting to Microsoft
+set TOOLCHAIN=MS
+
+:TOOLCHAIN_SET
+if [%TOOLCHAIN%]==[MS] (
+   echo Using Microsoft toolchain
+   SET LRCOMPILER=
+) else (
+   echo Using GCC/MinGW toolchain
+   SET LRCOMPILER=/MW
 )
 
 REM Download and unpack sources
@@ -140,29 +184,18 @@ call scripts\download.bat %CLEAN%
 REM Build the binaries
 Echo.
 Echo Start building...
-call scripts\build.bat %COMPAT%
+call scripts\build.bat %TOOLCHAIN% %COMPAT%
 
 Echo Build completed
 Echo.
 if [%TARGET%]==[] goto SkipInstall
-
-REM Check compiler, for the LuaRocks installer commandline switch
-Echo Testing for GCC...
-%CHECK_GCC%
-IF %ERRORLEVEL%==0 (
-   SET COMPILER=/MW
-   echo Will be installing LuaRocks with MinGW as compiler
-) else (
-   SET COMPILER=
-   echo MinGW not found in system path, assuming MS toolchain for LuaRocks installation
-)
 
 if not [%VERSION51%]==[] (
   REM Install 51
   CD lua-5.1
   CALL etc\winmake installv "%TARGET%"
   CD ..\luarocks
-  CALL install /P "%LRTARGET%" /LV 5.1 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %COMPILER%
+  CALL install /P "%LRTARGET%" /LV 5.1 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
   COPY "%LRTARGET%\luarocks.bat" "%TARGET%\bin\luarocks51.bat"
   CD ..
   REM Now pulling a trick to insert a versioned path to the rocks directory into the
@@ -184,7 +217,7 @@ if not [%VERSION52%]==[] (
   CD lua-5.2
   CALL etc\winmake installv "%TARGET%"
   CD ..\luarocks
-  CALL install /P "%LRTARGET%" /LV 5.2 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %COMPILER%
+  CALL install /P "%LRTARGET%" /LV 5.2 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
   COPY "%LRTARGET%\luarocks.bat" "%TARGET%\bin\luarocks52.bat"
   CD ..
   REM Now pulling a trick to insert a versioned path to the rocks directory into the
@@ -206,7 +239,7 @@ if not [%VERSION53%]==[] (
   CD lua-5.3
   CALL etc\winmake installv "%TARGET%"
   CD ..\luarocks
-  CALL install /P "%LRTARGET%" /LV 5.3 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %COMPILER%
+  CALL install /P "%LRTARGET%" /LV 5.3 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
   COPY "%LRTARGET%\luarocks.bat" "%TARGET%\bin\luarocks53.bat"
   CD ..
   REM Now pulling a trick to insert a versioned path to the rocks directory into the
