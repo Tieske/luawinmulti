@@ -24,11 +24,12 @@ SET LUAROCKS_TOPFOLDER=luarocks-%LRVERSION%
 
 REM  ***************  NOTHING TO CUSTOMIZE BELOW  *********************
 
+REM location for temp files
+SET DOWNLOADS=%temp%\lwm-downloads\
+
 if [%1]==[--clean] (
 echo start cleaning...
-  RMDIR /S /Q "%LUA51%"
-  RMDIR /S /Q "%LUA52%"
-  RMDIR /S /Q "%LUA53%"
+  RMDIR /S /Q "%DOWNLOADS%" 
   RMDIR /S /Q "lua-5.1"
   RMDIR /S /Q "lua-5.2"
   RMDIR /S /Q "lua-5.3"
@@ -45,58 +46,57 @@ echo start cleaning...
   )
 )
 
-if not exist luawinmake\*.* (
-  tools\wget --no-check-certificate --output-document=luawinmake%DL_SUFFIX% %DL_LUAWINMAKE%%DL_SUFFIX%
-  tools\7z x -y luawinmake.tar.gz
-  tools\7z x -y luawinmake.tar
-  rename %LUAWINMAKE_TOPFOLDER% luawinmake
-  del pax_global_header
-  del luawinmake*.*
+set WORKDIR=%CD%\
+RMDIR /S /Q "%DOWNLOADS%" 
+mkdir "%DOWNLOADS%"
+cd "%DOWNLOADS%"
+
+if not exist "%WORKDIR%luawinmake\*.*" (
+  "%WORKDIR%tools\wget" --no-check-certificate --output-document=luawinmake%DL_SUFFIX% %DL_LUAWINMAKE%%DL_SUFFIX%
+  "%WORKDIR%tools\7z" x -y luawinmake.tar.gz
+  "%WORKDIR%tools\7z" x -y luawinmake.tar
+  mkdir "%WORKDIR%luawinmake"
+  xcopy "%LUAWINMAKE_TOPFOLDER%\*.*" "%workdir%luawinmake\" /E /Y
 ) else (
   echo Skipping LuaWinMake download, directory already exists
 )
 
-if not exist luarocks\*.* (
-  tools\wget --no-check-certificate --output-document=luarocks%DL_SUFFIX% %DL_LUAROCKS%%DL_SUFFIX%
-  tools\7z x -y luarocks.tar.gz
-  tools\7z x -y luarocks.tar
-  rename %LUAROCKS_TOPFOLDER% luarocks
-  del pax_global_header
-  del luarocks*.*
+if not exist "%WORKDIR%luarocks\*.*" (
+  "%WORKDIR%tools\wget" --no-check-certificate --output-document=luarocks%DL_SUFFIX% %DL_LUAROCKS%%DL_SUFFIX%
+  "%WORKDIR%tools\7z" x -y luarocks.tar.gz
+  "%WORKDIR%tools\7z" x -y luarocks.tar
+  xcopy "%LUAROCKS_TOPFOLDER%\*.*" "%WORKDIR%luarocks\" /E /Y
 ) else (
   echo Skipping LuaRocks download, directory already exists
 )
 
-if not exist lua-5.1\*.* (
-  tools\wget --no-check-certificate --output-document=%LUA51%%DL_SUFFIX% %DL_PREFIX%%LUA51%%DL_SUFFIX%
-  tools\7z x -y %LUA51%.tar.gz
-  tools\7z x -y %LUA51%.tar
-  rename %LUA51% lua-5.1
-  del pax_global_header
-  del %LUA51%*.*
+if not exist "%WORKDIR%lua-5.1\*.*" (
+  "%WORKDIR%tools\wget" --no-check-certificate --output-document=%LUA51%%DL_SUFFIX% %DL_PREFIX%%LUA51%%DL_SUFFIX%
+  "%WORKDIR%tools\7z" x -y %LUA51%.tar.gz
+  "%WORKDIR%tools\7z" x -y %LUA51%.tar
+  xcopy "%LUA51%\*.*" "%WORKDIR%lua-5.1\" /E /Y
 ) else (
   echo Skipping Lua 5.1 download, directory already exists
 )
 
-if not exist lua-5.2\*.* (
-  tools\wget --no-check-certificate --output-document=%LUA52%%DL_SUFFIX% %DL_PREFIX%%LUA52%%DL_SUFFIX%
-  tools\7z x -y %LUA52%.tar.gz
-  tools\7z x -y %LUA52%.tar
-  rename %LUA52% lua-5.2
-  del pax_global_header
-  del %LUA52%*.*
+if not exist "%WORKDIR%lua-5.2\*.*" (
+  "%WORKDIR%tools\wget" --no-check-certificate --output-document=%LUA52%%DL_SUFFIX% %DL_PREFIX%%LUA52%%DL_SUFFIX%
+  "%WORKDIR%tools\7z" x -y %LUA52%.tar.gz
+  "%WORKDIR%tools\7z" x -y %LUA52%.tar
+  xcopy "%LUA52%\*.*" "%WORKDIR%lua-5.2\" /E /Y
 ) else (
   echo Skipping Lua 5.2 download, directory already exists
 )
 
-if not exist lua-5.3\*.* (
-  tools\wget --no-check-certificate --output-document=%LUA53%%DL_SUFFIX% %DL_PREFIX%%LUA53%%DL_SUFFIX%
-  tools\7z x -y %LUA53%.tar.gz
-  tools\7z x -y %LUA53%.tar
-  rename %LUA53% lua-5.3
-  del pax_global_header
-  del %LUA53%*.*
+if not exist "%WORKDIR%lua-5.3\*.*" (
+  "%WORKDIR%tools\wget" --no-check-certificate --output-document=%LUA53%%DL_SUFFIX% %DL_PREFIX%%LUA53%%DL_SUFFIX%
+  "%WORKDIR%tools\7z" x -y %LUA53%.tar.gz
+  "%WORKDIR%tools\7z" x -y %LUA53%.tar
+  xcopy "%LUA53%\*.*" "%WORKDIR%lua-5.3\" /E /Y
 ) else (
   echo Skipping Lua 5.3 download, directory already exists
 )
 
+REM The 'RMDIR' below might fail because of background processes like virus scanners etc having files open
+RMDIR /S /Q "%DOWNLOADS%" 
+CD "%WORKDIR%"
