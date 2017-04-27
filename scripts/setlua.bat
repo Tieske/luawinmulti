@@ -50,7 +50,7 @@ IF not [%1]==[] (
 )
 
 REM setup system path
-set path=%myownpath%;%PATH%
+set path=%appdata%\luarocks\bin;%myownpath%;%PATH%
 
 REM all paths: luarocks user-tree, luarocks system-tree, defaults
 REM setup Lua paths for 5.1
