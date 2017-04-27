@@ -52,17 +52,18 @@ IF not [%1]==[] (
 REM setup system path
 set path=%myownpath%;%PATH%
 
+REM all paths: luarocks user-tree, luarocks system-tree, defaults
 REM setup Lua paths for 5.1
-set LUA_CPATH=;;%myownpath%..\lib\lua\5.1\?.dll
-set LUA_PATH=;;%myownpath%..\share\lua\5.1\?.lua;%myownpath%..\share\lua\5.1\?\init.lua
+set LUA_CPATH=%appdata%\luarocks\lib\lua\5.1\?.dll;%myownpath%..\lib\lua\5.1\?.dll;;
+set LUA_PATH=%appdata%\luarocks\share\lua\5.1\?.lua;%appdata%\luarocks\share\lua\5.1\?\init.lua;%myownpath%..\share\lua\5.1\?.lua;%myownpath%..\share\lua\5.1\?\init.lua;;
 
 REM setup Lua paths for 5.2
-set LUA_CPATH_5_2=;;%myownpath%..\lib\lua\5.2\?.dll
-set LUA_PATH_5_2=;;%myownpath%..\share\lua\5.2\?.lua;%myownpath%..\share\lua\5.2\?\init.lua
+set LUA_CPATH_5_2=%appdata%\luarocks\lib\lua\5.2\?.dll;%myownpath%..\lib\lua\5.2\?.dll;;
+set LUA_PATH_5_2=%appdata%\luarocks\share\lua\5.2\?.lua;%appdata%\luarocks\share\lua\5.2\?\init.lua;%myownpath%..\share\lua\5.2\?.lua;%myownpath%..\share\lua\5.2\?\init.lua;;
 
-REM setup Lua paths for 5.3, defaults will do, but we need to set something to prevent the LUA_PATH from overruling
-set LUA_CPATH_5_3=;;
-set LUA_PATH_5_3=;;
+REM setup Lua paths for 5.3, defaults will do, but we need to add the user-tree
+set LUA_CPATH_5_3=%appdata%\luarocks\lib\lua\5.3\?.dll;;
+set LUA_PATH_5_3=%appdata%\luarocks\share\lua\5.3\?.lua;%appdata%\luarocks\share\lua\5.3\?\init.lua;;
 
 :cleanup
 set myownpath=
