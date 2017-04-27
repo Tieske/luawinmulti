@@ -39,7 +39,7 @@ IF not [%1]==[] (
     echo Error: "%myownpath%lua%1.exe" not found, make sure the version is installed before setting it.
     exit /b 1
   )
-  xcopy "%myownpath%lua%1.exe" "%myownpath%lua.exe" /Y > NUL
+  copy "%myownpath%lua%1.exe" "%myownpath%lua.exe" /B /Y > NUL
   Echo Done. Installed lua%1.exe as lua.exe.
   REM create wrapper to LuaRocks
   ECHO @ECHO OFF                          >  "%~dp0luarocks.bat"
