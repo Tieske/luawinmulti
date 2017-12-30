@@ -7,7 +7,7 @@ REM relative nameparts with source code
 SET LUA51=lua-5.1.5
 SET LUA52=lua-5.2.4
 SET LUA53=lua-5.3.4
-SET LRVERSION=2.4.2
+SET LRVERSION=2.4.3
 
 REM Archive suffix to use for all downloads
 SET DL_SUFFIX=.tar.gz
