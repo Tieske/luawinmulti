@@ -164,8 +164,11 @@ IF %ERRORLEVEL%==0 (
   echo Found gcc toolchain
   goto TOOLCHAIN_SET
 )
-echo No toolchain detected, defaulting to Microsoft
-set TOOLCHAIN=MS
+echo.
+echo No toolchain detected, please make sure you have the toolchain
+echo set up in your system path.
+exit /b 1
+
 
 :TOOLCHAIN_SET
 if [%TOOLCHAIN%]==[MS] (
