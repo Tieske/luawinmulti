@@ -53,46 +53,46 @@ cd "%DOWNLOADS%"
 
 if not exist "%WORKDIR%luawinmake\*.*" (
   "%WORKDIR%tools\wget" --no-check-certificate --output-document=luawinmake%DL_SUFFIX% %DL_LUAWINMAKE%%DL_SUFFIX%
-  "%WORKDIR%tools\7z" x -y luawinmake.tar.gz
-  "%WORKDIR%tools\7z" x -y luawinmake.tar
+  "%WORKDIR%tools\7z" x -y luawinmake.tar.gz >NUL
+  "%WORKDIR%tools\7z" x -y luawinmake.tar >NUL
   mkdir "%WORKDIR%luawinmake"
-  xcopy "%LUAWINMAKE_TOPFOLDER%\*.*" "%workdir%luawinmake\" /E /Y
+  xcopy "%LUAWINMAKE_TOPFOLDER%\*.*" "%workdir%luawinmake\" /E /Y /Q
 ) else (
   echo Skipping LuaWinMake download, directory already exists
 )
 
 if not exist "%WORKDIR%luarocks\*.*" (
   "%WORKDIR%tools\wget" --no-check-certificate --output-document=luarocks%DL_SUFFIX% %DL_LUAROCKS%%DL_SUFFIX%
-  "%WORKDIR%tools\7z" x -y luarocks.tar.gz
-  "%WORKDIR%tools\7z" x -y luarocks.tar
-  xcopy "%LUAROCKS_TOPFOLDER%\*.*" "%WORKDIR%luarocks\" /E /Y
+  "%WORKDIR%tools\7z" x -y luarocks.tar.gz >NUL
+  "%WORKDIR%tools\7z" x -y luarocks.tar >NUL
+  xcopy "%LUAROCKS_TOPFOLDER%\*.*" "%WORKDIR%luarocks\" /E /Y /Q
 ) else (
   echo Skipping LuaRocks download, directory already exists
 )
 
 if not exist "%WORKDIR%lua-5.1\*.*" (
   "%WORKDIR%tools\wget" --no-check-certificate --output-document=%LUA51%%DL_SUFFIX% %DL_PREFIX%%LUA51%%DL_SUFFIX%
-  "%WORKDIR%tools\7z" x -y %LUA51%.tar.gz
-  "%WORKDIR%tools\7z" x -y %LUA51%.tar
-  xcopy "%LUA51%\*.*" "%WORKDIR%lua-5.1\" /E /Y
+  "%WORKDIR%tools\7z" x -y %LUA51%.tar.gz >NUL
+  "%WORKDIR%tools\7z" x -y %LUA51%.tar >NUL
+  xcopy "%LUA51%\*.*" "%WORKDIR%lua-5.1\" /E /Y /Q
 ) else (
   echo Skipping Lua 5.1 download, directory already exists
 )
 
 if not exist "%WORKDIR%lua-5.2\*.*" (
   "%WORKDIR%tools\wget" --no-check-certificate --output-document=%LUA52%%DL_SUFFIX% %DL_PREFIX%%LUA52%%DL_SUFFIX%
-  "%WORKDIR%tools\7z" x -y %LUA52%.tar.gz
-  "%WORKDIR%tools\7z" x -y %LUA52%.tar
-  xcopy "%LUA52%\*.*" "%WORKDIR%lua-5.2\" /E /Y
+  "%WORKDIR%tools\7z" x -y %LUA52%.tar.gz >NUL
+  "%WORKDIR%tools\7z" x -y %LUA52%.tar >NUL
+  xcopy "%LUA52%\*.*" "%WORKDIR%lua-5.2\" /E /Y /Q
 ) else (
   echo Skipping Lua 5.2 download, directory already exists
 )
 
 if not exist "%WORKDIR%lua-5.3\*.*" (
   "%WORKDIR%tools\wget" --no-check-certificate --output-document=%LUA53%%DL_SUFFIX% %DL_PREFIX%%LUA53%%DL_SUFFIX%
-  "%WORKDIR%tools\7z" x -y %LUA53%.tar.gz
-  "%WORKDIR%tools\7z" x -y %LUA53%.tar
-  xcopy "%LUA53%\*.*" "%WORKDIR%lua-5.3\" /E /Y
+  "%WORKDIR%tools\7z" x -y %LUA53%.tar.gz >NUL
+  "%WORKDIR%tools\7z" x -y %LUA53%.tar >NUL
+  xcopy "%LUA53%\*.*" "%WORKDIR%lua-5.3\" /E /Y /Q
 ) else (
   echo Skipping Lua 5.3 download, directory already exists
 )

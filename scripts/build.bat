@@ -31,7 +31,7 @@ REM Build 51
 if exist lua-5.1\src\lua51.dll (
   echo Skipping Lua 5.1 build, binaries already exist
 ) else (
-  XCOPY /E/Y "%MAKE%" "lua-5.1"
+  XCOPY /E/Y/Q "%MAKE%" "lua-5.1"
   CD lua-5.1
   CALL etc\winmake clean
   CALL etc\winmake %TOOLCHAIN% %COMPAT%
@@ -42,7 +42,7 @@ REM Build 52
 if exist lua-5.2\src\lua52.dll (
   echo Skipping Lua 5.2 build, binaries already exist
 ) else (
-  XCOPY /E/Y "%MAKE%" "lua-5.2"
+  XCOPY /E/Y/Q "%MAKE%" "lua-5.2"
   CD lua-5.2
   CALL etc\winmake clean
   CALL etc\winmake %TOOLCHAIN% %COMPAT%
@@ -53,7 +53,7 @@ REM Build 53
 if exist lua-5.3\src\lua53.dll (
   echo Skipping Lua 5.3 build, binaries already exist
 ) else (
-  XCOPY /E/Y "%MAKE%" "lua-5.3"
+  XCOPY /E/Y/Q "%MAKE%" "lua-5.3"
   CD lua-5.3
   CALL etc\winmake clean
   CALL etc\winmake %TOOLCHAIN% %COMPAT%
