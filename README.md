@@ -84,6 +84,6 @@ location `c:\lua`).
 
 License
 =======
-Copyright 2015 - Thijs Schreijer.
+Copyright 2015-2019, Thijs Schreijer.
 MIT license for this project. Please note that other components are included
 which are covered by different licenses. See COPYING file for details.
