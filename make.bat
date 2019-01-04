@@ -78,7 +78,7 @@ if [%1]==[install] (
     SET TARGET=C:\Lua
     GOTO Continue
   )
-  SET TARGET=%2
+  SET TARGET=%~2
   if [%3]==[] GOTO Continue
   echo Error: 'install' must be the final option on the commandline, '%3' is not allowed here.
   exit /b 1
@@ -191,7 +191,7 @@ call scripts\build.bat %TOOLCHAIN% %COMPAT%
 
 Echo Build completed
 Echo.
-if [%TARGET%]==[] goto SkipInstall
+if "%TARGET%"=="" goto SkipInstall
 
 if not [%VERSION51%]==[] (
   REM Install 51
@@ -205,9 +205,9 @@ if not [%VERSION51%]==[] (
   REM created 'site_config' file
   SET INSERTLINE=site_config.LUAROCKS_ROCKS_SUBDIR=[[/lib/luarocks/rocks-5.1]]
   SETLOCAL ENABLEDELAYEDEXPANSION
-  for /F "tokens=*" %%A in (%LRTARGET%\lua\luarocks\site_config_5_1.lua) do (
-    echo %%A             >> %LRTARGET%\lua\luarocks\site_config_5_1.lua2
-    echo !INSERTLINE!    >> %LRTARGET%\lua\luarocks\site_config_5_1.lua2
+  for /F "usebackq tokens=*" %%A in ("%LRTARGET%\lua\luarocks\site_config_5_1.lua") do (
+    echo %%A             >> "%LRTARGET%\lua\luarocks\site_config_5_1.lua2"
+    echo !INSERTLINE!    >> "%LRTARGET%\lua\luarocks\site_config_5_1.lua2"
     SET INSERTLINE=--
   )
   copy "%LRTARGET%\lua\luarocks\site_config_5_1.lua2" "%LRTARGET%\lua\luarocks\site_config_5_1.lua"
@@ -227,9 +227,9 @@ if not [%VERSION52%]==[] (
   REM created 'site_config' file
   SET INSERTLINE=site_config.LUAROCKS_ROCKS_SUBDIR=[[/lib/luarocks/rocks-5.2]]
   SETLOCAL ENABLEDELAYEDEXPANSION
-  for /F "tokens=*" %%A in (%LRTARGET%\lua\luarocks\site_config_5_2.lua) do (
-    echo %%A             >> %LRTARGET%\lua\luarocks\site_config_5_2.lua2
-    echo !INSERTLINE!    >> %LRTARGET%\lua\luarocks\site_config_5_2.lua2
+  for /F "usebackq tokens=*" %%A in ("%LRTARGET%\lua\luarocks\site_config_5_2.lua") do (
+    echo %%A             >> "%LRTARGET%\lua\luarocks\site_config_5_2.lua2"
+    echo !INSERTLINE!    >> "%LRTARGET%\lua\luarocks\site_config_5_2.lua2"
     SET INSERTLINE=--
   )
   copy "%LRTARGET%\lua\luarocks\site_config_5_2.lua2" "%LRTARGET%\lua\luarocks\site_config_5_2.lua"
@@ -249,9 +249,9 @@ if not [%VERSION53%]==[] (
   REM created 'site_config' file
   SET INSERTLINE=site_config.LUAROCKS_ROCKS_SUBDIR=[[/lib/luarocks/rocks-5.3]]
   SETLOCAL ENABLEDELAYEDEXPANSION
-  for /F "tokens=*" %%A in (%LRTARGET%\lua\luarocks\site_config_5_3.lua) do (
-    echo %%A             >> %LRTARGET%\lua\luarocks\site_config_5_3.lua2
-    echo !INSERTLINE!    >> %LRTARGET%\lua\luarocks\site_config_5_3.lua2
+  for /F "usebackq tokens=*" %%A in ("%LRTARGET%\lua\luarocks\site_config_5_3.lua") do (
+    echo %%A             >> "%LRTARGET%\lua\luarocks\site_config_5_3.lua2"
+    echo !INSERTLINE!    >> "%LRTARGET%\lua\luarocks\site_config_5_3.lua2"
     SET INSERTLINE=--
   )
   copy "%LRTARGET%\lua\luarocks\site_config_5_3.lua2" "%LRTARGET%\lua\luarocks\site_config_5_3.lua"
