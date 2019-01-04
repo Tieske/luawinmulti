@@ -78,7 +78,7 @@ if [%1]==[install] (
     SET TARGET=C:\Lua
     GOTO Continue
   )
-  SET TARGET=%2
+  SET TARGET=%~2
   if [%3]==[] GOTO Continue
   echo Error: 'install' must be the final option on the commandline, '%3' is not allowed here.
   exit /b 1
@@ -191,7 +191,7 @@ call scripts\build.bat %TOOLCHAIN% %COMPAT%
 
 Echo Build completed
 Echo.
-if [%TARGET%]==[] goto SkipInstall
+if "%TARGET%"=="" goto SkipInstall
 
 if not [%VERSION51%]==[] (
   REM Install 51
