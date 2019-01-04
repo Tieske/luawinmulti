@@ -36,22 +36,33 @@ if "%BEFORE_LUA_PATH_BACKUP%"=="" (
 
 setlocal ENABLEDELAYEDEXPANSION
 IF not [%1]==[] (
+  REM verify the version actually exists
   if not exist "%myownpath%lua%1.exe" (
     echo Error: "%myownpath%lua%1.exe" not found, make sure the version is installed before setting it.
     exit /b 1
   )
-  copy "%myownpath%lua%1.exe" "%myownpath%lua.exe" /B /Y > NUL
-  if not [!ERRORLEVEL!]==[0] (
-    echo Error: could not set the proper defaults. Do you have the right permissions?
-    exit /b 1
+
+  REM compare files, so we do not execute any admin-priviledged
+  REM commands unnecessary
+  fc "%myownpath%lua%1.exe" "%myownpath%lua.exe" > NUL 2>&1
+  if [!ERRORLEVEL!]==[0] (
+    echo lua%1.exe was already set as default.
+  ) else (
+    REM they differ, so we must update them
+
+    copy "%myownpath%lua%1.exe" "%myownpath%lua.exe" /B /Y > NUL
+    if not [!ERRORLEVEL!]==[0] (
+      echo Error: could not set the proper defaults. Do you have the right permissions?
+      exit /b 1
+    )
+    Echo Installed lua%1.exe as lua.exe.
+    REM create wrapper to LuaRocks
+    ECHO @ECHO OFF                          >  "%~dp0luarocks.bat"
+    ECHO SETLOCAL                           >> "%~dp0luarocks.bat"
+    ECHO CALL "%%~dpn0%1.bat" %%*           >> "%~dp0luarocks.bat"
+    ECHO exit /b %%ERRORLEVEL%%             >> "%~dp0luarocks.bat"
+    Echo Installed luarocks%1.bat as luarocks.bat.
   )
-  Echo Done. Installed lua%1.exe as lua.exe.
-  REM create wrapper to LuaRocks
-  ECHO @ECHO OFF                          >  "%~dp0luarocks.bat"
-  ECHO SETLOCAL                           >> "%~dp0luarocks.bat"
-  ECHO CALL "%%~dpn0%1.bat" %%*           >> "%~dp0luarocks.bat"
-  ECHO exit /b %%ERRORLEVEL%%             >> "%~dp0luarocks.bat"
-  Echo Done. Installed luarocks%1.bat as luarocks.bat.
 )
 endlocal
 
@@ -70,6 +81,8 @@ set LUA_PATH_5_2=%appdata%\luarocks\share\lua\5.2\?.lua;%appdata%\luarocks\share
 REM setup Lua paths for 5.3, defaults will do, but we need to add the user-tree
 set LUA_CPATH_5_3=%appdata%\luarocks\lib\lua\5.3\?.dll;;
 set LUA_PATH_5_3=%appdata%\luarocks\share\lua\5.3\?.lua;%appdata%\luarocks\share\lua\5.3\?\init.lua;;
+
+echo Paths have been set up for binaries and Lua modules for lua%1.
 
 :cleanup
 set myownpath=
