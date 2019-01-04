@@ -144,8 +144,14 @@ SET MAKE=luawinmake
 
 REM Cleanup first
 if not [%CLEANTARGET%]==[] (
+  if "%TARGET%"=="" (
+    echo Error: '--cleantarget' requires the 'install' option to be specified.
+    exit /b 1
+  )
+  echo Cleaning target: %TARGET%
   RMDIR /S /Q "%LRTARGET%"
   RMDIR /S /Q "%TARGET%"
+  echo .
 )
 
 if not [%TOOLCHAIN%]==[] goto TOOLCHAIN_SET
