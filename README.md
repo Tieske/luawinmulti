@@ -2,7 +2,7 @@ Multi-lua for Windows script
 ============================
 
 This batchfile will download, compile and configure a Lua installation with 
-versions 5.1, 5.2, and 5.3 in parallel. Including the accompanying 
+versions 5.1, 5.2, 5.3, and 5.4 in parallel. Including the accompanying 
 LuaRocks package manager for each version.
 
 Prerequisites
@@ -17,9 +17,9 @@ Command
 
 ````
 Command:
-  MAKE [--clean] [--cleantarget] [--nocompat] [--51] [--52] [--53] [install [<location>]]
+  MAKE [--clean] [--cleantarget] [--nocompat] [--51] [--52] [--53] [--54] [install [<location>]]
 
-  --51, --52, --53   : specify the versions to install, default is to install
+  --51,--52,--53,--54: specify the versions to install, default is to install
                        all versions. Applies only to installing, all versions will be
                        build independent of this option.
                        The first version listed will be set as the unversioned default.
@@ -35,7 +35,7 @@ Command:
 
 Example: the following commands, executed after each other will;
   make install
-                 Will download, build and install 3 Lua versions in 'C:\Lua', 5.1 will
+                 Will download, build and install 4 Lua versions in 'C:\Lua', 5.1 will
                  be set as the default.
 
   make --51 --52 install C:\lua2
@@ -63,16 +63,16 @@ What it does
 Usage
 =====
 
-Each Lua version will have its own executable; `lua51.exe`, `lua52.exe`, and 
-`lua53.exe`. And for LuaRocks 3 batchfiles will be generated; `luarocks51.bat`,
-`luarocks52.bat`, and `luarocks53.bat`.
+Each Lua version will have its own executable; `lua51.exe`, `lua52.exe`, `lua53.exe`, and 
+`lua54.exe`. And for LuaRocks 4 batchfiles will be generated; `luarocks51.bat`,
+`luarocks52.bat`, `luarocks53.bat`, and `luarocks54.bat`.
 
 The luarocks batch files will be in the same directory as the lua executables, so
 only the Lua path has to be added to the system path.
 
 The utility `setlua.bat` will setup default versions for Lua and LuaRocks unversioned
-commands. eg. `setlua 53` will create a copy of `lua53.exe` as `lua.exe`, and will 
-create a batch file `luarocks.bat` that will invoke `luarocks53.bat`.
+commands. eg. `setlua 54` will create a copy of `lua54.exe` as `lua.exe`, and will 
+create a batch file `luarocks.bat` that will invoke `luarocks54.bat`.
 Besides that it will add the Lua location to the system path and install all LuaRocks
 system rocktrees into the respective Lua path environment variables.
 
@@ -84,6 +84,6 @@ location `c:\lua`).
 
 License
 =======
-Copyright 2015-2019, Thijs Schreijer.
+Copyright 2015-2020, Thijs Schreijer.
 MIT license for this project. Please note that other components are included
 which are covered by different licenses. See COPYING file for details.
