@@ -4,6 +4,7 @@ IF [%1]==[] goto VersionOK
 IF [%1]==[51] goto VersionOK
 IF [%1]==[52] goto VersionOK
 IF [%1]==[53] goto VersionOK
+IF [%1]==[54] goto VersionOK
 IF [%1]==[--help] GOTO Help
 IF [%1]==[-help] GOTO Help
 IF [%1]==[help] GOTO Help
@@ -21,7 +22,7 @@ echo Lua version is provided, it will be set as the unversioned default version.
 echo.
 echo Usage:
 echo    %~n0 ^<LuaVersion^>
-echo Where the optional LuaVersion is any of; 51, 52, or 53
+echo Where the optional LuaVersion is any of; 51, 52, 53, or 54
 echo.
 exit /b
 
@@ -89,6 +90,10 @@ set LUA_PATH_5_2=%appdata%\luarocks\share\lua\5.2\?.lua;%appdata%\luarocks\share
 REM setup Lua paths for 5.3, defaults will do, but we need to add the user-tree
 set LUA_CPATH_5_3=%appdata%\luarocks\lib\lua\5.3\?.dll;;
 set LUA_PATH_5_3=%appdata%\luarocks\share\lua\5.3\?.lua;%appdata%\luarocks\share\lua\5.3\?\init.lua;;
+
+REM setup Lua paths for 5.4, defaults will do, but we need to add the user-tree
+set LUA_CPATH_5_4=%appdata%\luarocks\lib\lua\5.4\?.dll;;
+set LUA_PATH_5_4=%appdata%\luarocks\share\lua\5.4\?.lua;%appdata%\luarocks\share\lua\5.4\?\init.lua;;
 
 echo Paths have been set up for binaries and Lua modules for lua%1.
 
