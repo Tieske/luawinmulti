@@ -56,6 +56,14 @@ IF not [%1]==[] (
       exit /b 1
     )
     Echo Installed lua%1.exe as lua.exe.
+
+    copy "%myownpath%luac%1.exe" "%myownpath%luac.exe" /B /Y > NUL
+    if not [!ERRORLEVEL!]==[0] (
+      echo Error: could not set the proper defaults. Do you have the right permissions?
+      exit /b 1
+    )
+    Echo Installed luac%1.exe as luac.exe.
+    
     REM create wrapper to LuaRocks
     ECHO @ECHO OFF                          >  "%~dp0luarocks.bat"
     ECHO SETLOCAL                           >> "%~dp0luarocks.bat"
