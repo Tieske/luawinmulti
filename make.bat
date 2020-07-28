@@ -199,6 +199,11 @@ Echo.
 Echo Starting download...
 call scripts\download.bat %CLEAN%
 
+REM Temporary fix until upgrade to LuaRocks 3
+REM Fix LR 2.4.4 installer to support Lua 5.4
+copy lr244_install.bat_54 luarocks\install.bat
+copy lr244_cfg.lua_54 luarocks\src\luarocks\cfg.lua
+
 REM Build the binaries
 Echo.
 Echo Start building...
