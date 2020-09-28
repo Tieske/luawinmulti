@@ -6,7 +6,7 @@ REM  ***************  CUSTOMIZATION SECTION  *********************
 REM relative nameparts with source code
 SET LUA51=lua-5.1.5
 SET LUA52=lua-5.2.4
-SET LUA53=lua-5.3.5
+SET LUA53=lua-5.3.6
 SET LUA54=lua-5.4.0
 SET LRVERSION=2.4.4
 
