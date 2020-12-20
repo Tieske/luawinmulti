@@ -1,5 +1,13 @@
 @echo off
 
+SET myownpath=%~dp0
+if [%1]==[-x] (
+  SET permanent=true
+  shift
+) else (
+  SET permanent=
+)
+
 IF [%1]==[] goto VersionOK
 IF [%1]==[51] goto VersionOK
 IF [%1]==[52] goto VersionOK
@@ -14,27 +22,28 @@ IF [%1]==[?] GOTO Help
 IF [%1]==[/?] GOTO Help
 
 echo Error: unknown commandline argument '%1'. Use '%~n0 --help' for usage information.
+SET permanent=
+SET myownpath=
 exit /b 1
 
 :Help
-echo Will setup the environment for the Lua installation, system path and Lua paths. If a 
-echo Lua version is provided, it will be set as the unversioned default version.
+SET permanent=
+SET myownpath=
+echo Will setup the environment for the Lua installation, system path and Lua paths.
 echo.
 echo Usage:
-echo    %~n0 ^<LuaVersion^>
-echo Where the optional LuaVersion is any of; 51, 52, 53, or 54
+echo  %~n0 [-x] [version]
+echo.
+echo Options:
+echo  -x        Will set the variables for the current user using SETX instead of SET,
+echo            making the variables survive restarts/sessions.
+echo.
+echo  version   Lua-version to be set as the unversioned default.
+echo            Valid values; 51, 52, 53, or 54
 echo.
 exit /b
 
 :VersionOK
-SET myownpath=%~dp0
-REM Save the original path in case this file is called more than once
-if "%BEFORE_LUA_PATH_BACKUP%"=="" (
-   set "BEFORE_LUA_PATH_BACKUP=%PATH%"
-) else (
-   set "PATH=%BEFORE_LUA_PATH_BACKUP%"
-)
-
 setlocal ENABLEDELAYEDEXPANSION
 IF not [%1]==[] (
   REM verify the version actually exists
@@ -95,9 +104,36 @@ REM setup Lua paths for 5.4, defaults will do, but we need to add the user-tree
 set LUA_CPATH_5_4=%appdata%\luarocks\lib\lua\5.4\?.dll;;
 set LUA_PATH_5_4=%appdata%\luarocks\share\lua\5.4\?.lua;%appdata%\luarocks\share\lua\5.4\?\init.lua;;
 
+
+REM cleanup the paths in case of duplicate entries
+REM to prevent a mess when calling this multiple times
+for /f "tokens=*" %%i in ('lua %myownpath%setlua_clean.lua path') do set path=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%setlua_clean.lua LUA_CPATH') do set LUA_CPATH=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%setlua_clean.lua LUA_PATH') do set LUA_PATH=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%setlua_clean.lua LUA_CPATH_5_2') do set LUA_CPATH_5_2=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%setlua_clean.lua LUA_PATH_5_2') do set LUA_PATH_5_2=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%setlua_clean.lua LUA_CPATH_5_3') do set LUA_CPATH_5_3=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%setlua_clean.lua LUA_PATH_5_3') do set LUA_PATH_5_3=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%setlua_clean.lua LUA_CPATH_5_4') do set LUA_CPATH_5_4=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%setlua_clean.lua LUA_PATH_5_4') do set LUA_PATH_5_4=%%i
+
 echo Paths have been set up for binaries and Lua modules. Active version;
 lua -v
 
+if [%permanent%]==[true] (
+  echo "Setting variables using SETX to make them permanent..."
+  setx path "%PATH%"
+  setx LUA_CPATH "%LUA_CPATH%"
+  setx LUA_PATH "%LUA_PATH%"
+  setx LUA_CPATH_5_2 "%LUA_CPATH_5_2%"
+  setx LUA_PATH_5_2 "%LUA_PATH_5_2%"
+  setx LUA_CPATH_5_3 "%LUA_CPATH_5_3%"
+  setx LUA_PATH_5_3 "%LUA_PATH_5_3%"
+  setx LUA_CPATH_5_4 "%LUA_CPATH_5_4%"
+  setx LUA_PATH_5_4 "%LUA_PATH_5_4%"
+)
+
 :cleanup
+set permanent=
 set myownpath=
 exit /b

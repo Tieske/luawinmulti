@@ -82,6 +82,9 @@ specific for this environment. For example; create a shortcut with target
 `C:\Windows\System32\cmd.exe /k c:\lua\bin\setlua.bat` (assuming the default Lua 
 location `c:\lua`).
 
+Using the `-x` option (using the `setx` command) will set the variables permanently,
+such that they survive restarts.
+
 License
 =======
 Copyright 2015-2020, Thijs Schreijer.
