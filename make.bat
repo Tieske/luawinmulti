@@ -303,6 +303,7 @@ if not [%VERSION54%]==[] (
 
 REM install setlua.bat utility
 copy .\scripts\setlua.bat "%TARGET%\bin"
+copy .\scripts\clean_path.lua "%TARGET%\bin"
 
 echo.
 Echo Done installing, now setting an unversioned default;
