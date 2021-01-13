@@ -17,23 +17,19 @@ echo Error: unknown commandline argument '%1'. Use '%~n0 --help' for usage infor
 exit /b 1
 
 :Help
-echo Will setup the environment for the Lua installation, system path and Lua paths. If a 
-echo Lua version is provided, it will be set as the unversioned default version.
+echo Will setup the environment for the Lua installation; system path and Lua paths.
 echo.
 echo Usage:
-echo    %~n0 ^<LuaVersion^>
-echo Where the optional LuaVersion is any of; 51, 52, 53, or 54
+echo  %~n0 [version]
+echo.
+echo Options:
+echo  version   Lua-version to be set as the unversioned default.
+echo            Valid values; 51, 52, 53, or 54
 echo.
 exit /b
 
 :VersionOK
 SET myownpath=%~dp0
-REM Save the original path in case this file is called more than once
-if "%BEFORE_LUA_PATH_BACKUP%"=="" (
-   set "BEFORE_LUA_PATH_BACKUP=%PATH%"
-) else (
-   set "PATH=%BEFORE_LUA_PATH_BACKUP%"
-)
 
 setlocal ENABLEDELAYEDEXPANSION
 IF not [%1]==[] (
@@ -94,6 +90,19 @@ set LUA_PATH_5_3=%appdata%\luarocks\share\lua\5.3\?.lua;%appdata%\luarocks\share
 REM setup Lua paths for 5.4, defaults will do, but we need to add the user-tree
 set LUA_CPATH_5_4=%appdata%\luarocks\lib\lua\5.4\?.dll;;
 set LUA_PATH_5_4=%appdata%\luarocks\share\lua\5.4\?.lua;%appdata%\luarocks\share\lua\5.4\?\init.lua;;
+
+
+REM cleanup the paths in case of duplicate entries
+REM to prevent a mess when calling this multiple times
+for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua path') do set path=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua LUA_CPATH') do set LUA_CPATH=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua LUA_PATH') do set LUA_PATH=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua LUA_CPATH_5_2') do set LUA_CPATH_5_2=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua LUA_PATH_5_2') do set LUA_PATH_5_2=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua LUA_CPATH_5_3') do set LUA_CPATH_5_3=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua LUA_PATH_5_3') do set LUA_PATH_5_3=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua LUA_CPATH_5_4') do set LUA_CPATH_5_4=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua LUA_PATH_5_4') do set LUA_PATH_5_4=%%i
 
 echo Paths have been set up for binaries and Lua modules. Active version;
 lua -v
