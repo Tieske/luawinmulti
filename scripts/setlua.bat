@@ -104,7 +104,8 @@ for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua LUA_PATH_5_3') do set L
 for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua LUA_CPATH_5_4') do set LUA_CPATH_5_4=%%i
 for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua LUA_PATH_5_4') do set LUA_PATH_5_4=%%i
 
-echo Paths have been set up for binaries and Lua modules. Active version;
+echo Paths have been set up for Lua binaries and modules. Active version;
+where lua
 lua -v
 
 :cleanup
