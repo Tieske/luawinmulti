@@ -219,7 +219,8 @@ if not [%VERSION51%]==[] (
   CALL etc\winmake installv "%TARGET%"
   CD ..\luarocks
   CALL install /P "%LRTARGET%" /LV 5.1 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
-  COPY "%LRTARGET%\luarocks.bat" "%TARGET%\bin\luarocks51.bat"
+  echo @REM This is the original LuaRocks-installer generated batch file > "%TARGET%\bin\_luarocks51.bat"
+  type "%LRTARGET%\luarocks.bat" >> "%TARGET%\bin\_luarocks51.bat"
   CD ..
 )
 
@@ -229,7 +230,8 @@ if not [%VERSION52%]==[] (
   CALL etc\winmake installv "%TARGET%"
   CD ..\luarocks
   CALL install /P "%LRTARGET%" /LV 5.2 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
-  COPY "%LRTARGET%\luarocks.bat" "%TARGET%\bin\luarocks52.bat"
+  echo @REM This is the original LuaRocks-installer generated batch file > "%TARGET%\bin\_luarocks52.bat"
+  type "%LRTARGET%\luarocks.bat" >> "%TARGET%\bin\_luarocks52.bat"
   CD ..
 )
 
@@ -239,7 +241,8 @@ if not [%VERSION53%]==[] (
   CALL etc\winmake installv "%TARGET%"
   CD ..\luarocks
   CALL install /P "%LRTARGET%" /LV 5.3 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
-  COPY "%LRTARGET%\luarocks.bat" "%TARGET%\bin\luarocks53.bat"
+  echo @REM This is the original LuaRocks-installer generated batch file > "%TARGET%\bin\_luarocks53.bat"
+  type "%LRTARGET%\luarocks.bat" >> "%TARGET%\bin\_luarocks53.bat"
   CD ..
 )
 
@@ -249,7 +252,8 @@ if not [%VERSION54%]==[] (
   CALL etc\winmake installv "%TARGET%"
   CD ..\luarocks
   CALL install /P "%LRTARGET%" /LV 5.4 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
-  COPY "%LRTARGET%\luarocks.bat" "%TARGET%\bin\luarocks54.bat"
+  echo @REM This is the original LuaRocks-installer generated batch file > "%TARGET%\bin\_luarocks54.bat"
+  type "%LRTARGET%\luarocks.bat" >> "%TARGET%\bin\_luarocks54.bat"
   CD ..
 )
 
