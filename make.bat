@@ -224,7 +224,7 @@ if not [%VERSION51%]==[] (
   ren "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua" _hardcoded.lua
   echo @ECHO OFF                                                  > "%TARGET%\bin\luarocks51.bat"
   echo SETLOCAL                                                   >> "%TARGET%\bin\luarocks51.bat"
-  echo set LUAROCKS_SYSCONFDIR=%TARGET%\LuaRocks\                 >> "%TARGET%\bin\luarocks51.bat"
+  echo set LUAROCKS_SYSCONFDIR=%TARGET%\LuaRocks\>> "%TARGET%\bin\luarocks51.bat"
   echo CALL "%TARGET%\bin\_luarocks51.bat" --lua-version=5.1 %%*  >> "%TARGET%\bin\luarocks51.bat"
   echo exit /b %ERRORLEVEL%                                       >> "%TARGET%\bin\luarocks51.bat"
   CD ..
@@ -241,7 +241,7 @@ if not [%VERSION52%]==[] (
   ren "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua" _hardcoded.lua
   echo @ECHO OFF                                                  > "%TARGET%\bin\luarocks52.bat"
   echo SETLOCAL                                                   >> "%TARGET%\bin\luarocks52.bat"
-  echo set LUAROCKS_SYSCONFDIR=%TARGET%\LuaRocks\                 >> "%TARGET%\bin\luarocks52.bat"
+  echo set LUAROCKS_SYSCONFDIR=%TARGET%\LuaRocks\>> "%TARGET%\bin\luarocks52.bat"
   echo CALL "%TARGET%\bin\_luarocks52.bat" --lua-version=5.2 %%*  >> "%TARGET%\bin\luarocks52.bat"
   echo exit /b %ERRORLEVEL%                                       >> "%TARGET%\bin\luarocks52.bat"
   CD ..
@@ -258,7 +258,7 @@ if not [%VERSION53%]==[] (
   ren "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua" _hardcoded.lua
   echo @ECHO OFF                                                  > "%TARGET%\bin\luarocks53.bat"
   echo SETLOCAL                                                   >> "%TARGET%\bin\luarocks53.bat"
-  echo set LUAROCKS_SYSCONFDIR=%TARGET%\LuaRocks\                 >> "%TARGET%\bin\luarocks53.bat"
+  echo set LUAROCKS_SYSCONFDIR=%TARGET%\LuaRocks\>> "%TARGET%\bin\luarocks53.bat"
   echo CALL "%TARGET%\bin\_luarocks53.bat" --lua-version=5.3 %%*  >> "%TARGET%\bin\luarocks53.bat"
   echo exit /b %ERRORLEVEL%                                       >> "%TARGET%\bin\luarocks53.bat"
   CD ..
@@ -275,7 +275,7 @@ if not [%VERSION54%]==[] (
   ren "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua" _hardcoded.lua
   echo @ECHO OFF                                                  > "%TARGET%\bin\luarocks54.bat"
   echo SETLOCAL                                                   >> "%TARGET%\bin\luarocks54.bat"
-  echo set LUAROCKS_SYSCONFDIR=%TARGET%\LuaRocks\                 >> "%TARGET%\bin\luarocks54.bat"
+  echo set LUAROCKS_SYSCONFDIR=%TARGET%\LuaRocks\>> "%TARGET%\bin\luarocks54.bat"
   echo CALL "%TARGET%\bin\_luarocks54.bat" --lua-version=5.4 %%*  >> "%TARGET%\bin\luarocks54.bat"
   echo exit /b %ERRORLEVEL%                                       >> "%TARGET%\bin\luarocks54.bat"
   CD ..
