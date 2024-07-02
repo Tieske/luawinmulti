@@ -221,6 +221,7 @@ if not [%VERSION51%]==[] (
   CALL install /P "%LRTARGET%" /LV 5.1 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
   echo @REM This is the original LuaRocks-installer generated batch file > "%TARGET%\bin\_luarocks51.bat"
   type "%LRTARGET%\luarocks.bat" >> "%TARGET%\bin\_luarocks51.bat"
+  ren "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua" _hardcoded.lua
   CD ..
 )
 
@@ -232,6 +233,7 @@ if not [%VERSION52%]==[] (
   CALL install /P "%LRTARGET%" /LV 5.2 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
   echo @REM This is the original LuaRocks-installer generated batch file > "%TARGET%\bin\_luarocks52.bat"
   type "%LRTARGET%\luarocks.bat" >> "%TARGET%\bin\_luarocks52.bat"
+  ren "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua" _hardcoded.lua
   CD ..
 )
 
@@ -243,6 +245,7 @@ if not [%VERSION53%]==[] (
   CALL install /P "%LRTARGET%" /LV 5.3 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
   echo @REM This is the original LuaRocks-installer generated batch file > "%TARGET%\bin\_luarocks53.bat"
   type "%LRTARGET%\luarocks.bat" >> "%TARGET%\bin\_luarocks53.bat"
+  ren "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua" _hardcoded.lua
   CD ..
 )
 
@@ -254,6 +257,7 @@ if not [%VERSION54%]==[] (
   CALL install /P "%LRTARGET%" /LV 5.4 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
   echo @REM This is the original LuaRocks-installer generated batch file > "%TARGET%\bin\_luarocks54.bat"
   type "%LRTARGET%\luarocks.bat" >> "%TARGET%\bin\_luarocks54.bat"
+  ren "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua" _hardcoded.lua
   CD ..
 )
 
