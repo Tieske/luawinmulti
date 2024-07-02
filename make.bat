@@ -219,9 +219,14 @@ if not [%VERSION51%]==[] (
   CALL etc\winmake installv "%TARGET%"
   CD ..\luarocks
   CALL install /P "%LRTARGET%" /LV 5.1 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
-  echo @REM This is the original LuaRocks-installer generated batch file > "%TARGET%\bin\_luarocks51.bat"
-  type "%LRTARGET%\luarocks.bat" >> "%TARGET%\bin\_luarocks51.bat"
+  echo @REM This is the original LuaRocks-installer generated batch file  > "%TARGET%\bin\_luarocks51.bat"
+  type "%LRTARGET%\luarocks.bat"                                          >> "%TARGET%\bin\_luarocks51.bat"
   ren "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua" _hardcoded.lua
+  echo @ECHO OFF                                                  > "%TARGET%\bin\luarocks51.bat"
+  echo SETLOCAL                                                   >> "%TARGET%\bin\luarocks51.bat"
+  echo set LUAROCKS_SYSCONFDIR=%TARGET%\LuaRocks\                 >> "%TARGET%\bin\luarocks51.bat"
+  echo CALL "%TARGET%\bin\_luarocks51.bat" --lua-version=5.1 %*   >> "%TARGET%\bin\luarocks51.bat"
+  echo exit /b %ERRORLEVEL%                                       >> "%TARGET%\bin\luarocks51.bat"
   CD ..
 )
 
@@ -231,9 +236,14 @@ if not [%VERSION52%]==[] (
   CALL etc\winmake installv "%TARGET%"
   CD ..\luarocks
   CALL install /P "%LRTARGET%" /LV 5.2 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
-  echo @REM This is the original LuaRocks-installer generated batch file > "%TARGET%\bin\_luarocks52.bat"
-  type "%LRTARGET%\luarocks.bat" >> "%TARGET%\bin\_luarocks52.bat"
+  echo @REM This is the original LuaRocks-installer generated batch file  > "%TARGET%\bin\_luarocks52.bat"
+  type "%LRTARGET%\luarocks.bat"                                          >> "%TARGET%\bin\_luarocks52.bat"
   ren "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua" _hardcoded.lua
+  echo @ECHO OFF                                                  > "%TARGET%\bin\luarocks52.bat"
+  echo SETLOCAL                                                   >> "%TARGET%\bin\luarocks52.bat"
+  echo set LUAROCKS_SYSCONFDIR=%TARGET%\LuaRocks\                 >> "%TARGET%\bin\luarocks52.bat"
+  echo CALL "%TARGET%\bin\_luarocks52.bat" --lua-version=5.2 %*   >> "%TARGET%\bin\luarocks52.bat"
+  echo exit /b %ERRORLEVEL%                                       >> "%TARGET%\bin\luarocks52.bat"
   CD ..
 )
 
@@ -243,9 +253,14 @@ if not [%VERSION53%]==[] (
   CALL etc\winmake installv "%TARGET%"
   CD ..\luarocks
   CALL install /P "%LRTARGET%" /LV 5.3 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
-  echo @REM This is the original LuaRocks-installer generated batch file > "%TARGET%\bin\_luarocks53.bat"
-  type "%LRTARGET%\luarocks.bat" >> "%TARGET%\bin\_luarocks53.bat"
+  echo @REM This is the original LuaRocks-installer generated batch file  > "%TARGET%\bin\_luarocks53.bat"
+  type "%LRTARGET%\luarocks.bat"                                          >> "%TARGET%\bin\_luarocks53.bat"
   ren "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua" _hardcoded.lua
+  echo @ECHO OFF                                                  > "%TARGET%\bin\luarocks53.bat"
+  echo SETLOCAL                                                   >> "%TARGET%\bin\luarocks53.bat"
+  echo set LUAROCKS_SYSCONFDIR=%TARGET%\LuaRocks\                 >> "%TARGET%\bin\luarocks53.bat"
+  echo CALL "%TARGET%\bin\_luarocks53.bat" --lua-version=5.3 %*   >> "%TARGET%\bin\luarocks53.bat"
+  echo exit /b %ERRORLEVEL%                                       >> "%TARGET%\bin\luarocks53.bat"
   CD ..
 )
 
@@ -255,9 +270,14 @@ if not [%VERSION54%]==[] (
   CALL etc\winmake installv "%TARGET%"
   CD ..\luarocks
   CALL install /P "%LRTARGET%" /LV 5.4 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
-  echo @REM This is the original LuaRocks-installer generated batch file > "%TARGET%\bin\_luarocks54.bat"
-  type "%LRTARGET%\luarocks.bat" >> "%TARGET%\bin\_luarocks54.bat"
+  echo @REM This is the original LuaRocks-installer generated batch file  > "%TARGET%\bin\_luarocks54.bat"
+  type "%LRTARGET%\luarocks.bat"                                          >> "%TARGET%\bin\_luarocks54.bat"
   ren "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua" _hardcoded.lua
+  echo @ECHO OFF                                                  > "%TARGET%\bin\luarocks54.bat"
+  echo SETLOCAL                                                   >> "%TARGET%\bin\luarocks54.bat"
+  echo set LUAROCKS_SYSCONFDIR=%TARGET%\LuaRocks\                 >> "%TARGET%\bin\luarocks54.bat"
+  echo CALL "%TARGET%\bin\_luarocks54.bat" --lua-version=5.4 %*   >> "%TARGET%\bin\luarocks54.bat"
+  echo exit /b %ERRORLEVEL%                                       >> "%TARGET%\bin\luarocks54.bat"
   CD ..
 )
 
