@@ -221,18 +221,6 @@ if not [%VERSION51%]==[] (
   CALL install /P "%LRTARGET%" /LV 5.1 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
   COPY "%LRTARGET%\luarocks.bat" "%TARGET%\bin\luarocks51.bat"
   CD ..
-  REM Now pulling a trick to insert a versioned path to the rocks directory into the
-  REM created 'site_config' file
-  SET INSERTLINE=site_config.LUAROCKS_ROCKS_SUBDIR=[[/lib/luarocks/rocks-5.1]]
-  SETLOCAL ENABLEDELAYEDEXPANSION
-  for /F "usebackq tokens=*" %%A in ("%LRTARGET%\lua\luarocks\site_config_5_1.lua") do (
-    echo %%A             >> "%LRTARGET%\lua\luarocks\site_config_5_1.lua2"
-    echo !INSERTLINE!    >> "%LRTARGET%\lua\luarocks\site_config_5_1.lua2"
-    SET INSERTLINE=--
-  )
-  copy "%LRTARGET%\lua\luarocks\site_config_5_1.lua2" "%LRTARGET%\lua\luarocks\site_config_5_1.lua"
-  del "%LRTARGET%\lua\luarocks\site_config_5_1.lua2"
-  ENDLOCAL
 )
 
 if not [%VERSION52%]==[] (
@@ -243,18 +231,6 @@ if not [%VERSION52%]==[] (
   CALL install /P "%LRTARGET%" /LV 5.2 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
   COPY "%LRTARGET%\luarocks.bat" "%TARGET%\bin\luarocks52.bat"
   CD ..
-  REM Now pulling a trick to insert a versioned path to the rocks directory into the
-  REM created 'site_config' file
-  SET INSERTLINE=site_config.LUAROCKS_ROCKS_SUBDIR=[[/lib/luarocks/rocks-5.2]]
-  SETLOCAL ENABLEDELAYEDEXPANSION
-  for /F "usebackq tokens=*" %%A in ("%LRTARGET%\lua\luarocks\site_config_5_2.lua") do (
-    echo %%A             >> "%LRTARGET%\lua\luarocks\site_config_5_2.lua2"
-    echo !INSERTLINE!    >> "%LRTARGET%\lua\luarocks\site_config_5_2.lua2"
-    SET INSERTLINE=--
-  )
-  copy "%LRTARGET%\lua\luarocks\site_config_5_2.lua2" "%LRTARGET%\lua\luarocks\site_config_5_2.lua"
-  del "%LRTARGET%\lua\luarocks\site_config_5_2.lua2"
-  ENDLOCAL
 )
 
 if not [%VERSION53%]==[] (
@@ -265,18 +241,6 @@ if not [%VERSION53%]==[] (
   CALL install /P "%LRTARGET%" /LV 5.3 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
   COPY "%LRTARGET%\luarocks.bat" "%TARGET%\bin\luarocks53.bat"
   CD ..
-  REM Now pulling a trick to insert a versioned path to the rocks directory into the
-  REM created 'site_config' file
-  SET INSERTLINE=site_config.LUAROCKS_ROCKS_SUBDIR=[[/lib/luarocks/rocks-5.3]]
-  SETLOCAL ENABLEDELAYEDEXPANSION
-  for /F "usebackq tokens=*" %%A in ("%LRTARGET%\lua\luarocks\site_config_5_3.lua") do (
-    echo %%A             >> "%LRTARGET%\lua\luarocks\site_config_5_3.lua2"
-    echo !INSERTLINE!    >> "%LRTARGET%\lua\luarocks\site_config_5_3.lua2"
-    SET INSERTLINE=--
-  )
-  copy "%LRTARGET%\lua\luarocks\site_config_5_3.lua2" "%LRTARGET%\lua\luarocks\site_config_5_3.lua"
-  del "%LRTARGET%\lua\luarocks\site_config_5_3.lua2"
-  ENDLOCAL
 )
 
 if not [%VERSION54%]==[] (
@@ -287,18 +251,6 @@ if not [%VERSION54%]==[] (
   CALL install /P "%LRTARGET%" /LV 5.4 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
   COPY "%LRTARGET%\luarocks.bat" "%TARGET%\bin\luarocks54.bat"
   CD ..
-  REM Now pulling a trick to insert a versioned path to the rocks directory into the
-  REM created 'site_config' file
-  SET INSERTLINE=site_config.LUAROCKS_ROCKS_SUBDIR=[[/lib/luarocks/rocks-5.4]]
-  SETLOCAL ENABLEDELAYEDEXPANSION
-  for /F "usebackq tokens=*" %%A in ("%LRTARGET%\lua\luarocks\site_config_5_4.lua") do (
-    echo %%A             >> "%LRTARGET%\lua\luarocks\site_config_5_4.lua2"
-    echo !INSERTLINE!    >> "%LRTARGET%\lua\luarocks\site_config_5_4.lua2"
-    SET INSERTLINE=--
-  )
-  copy "%LRTARGET%\lua\luarocks\site_config_5_4.lua2" "%LRTARGET%\lua\luarocks\site_config_5_4.lua"
-  del "%LRTARGET%\lua\luarocks\site_config_5_4.lua2"
-  ENDLOCAL
 )
 
 REM install setlua.bat utility
