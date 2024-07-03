@@ -8,7 +8,7 @@ SET LUA51=lua-5.1.5
 SET LUA52=lua-5.2.4
 SET LUA53=lua-5.3.6
 SET LUA54=lua-5.4.7
-SET LRVERSION=2.4.4
+SET LRVERSION=3.11.1
 
 REM Archive suffix to use for all downloads
 SET DL_SUFFIX=.tar.gz
@@ -20,8 +20,8 @@ SET DL_LUAWINMAKE=https://github.com/Tieske/luawinmake/archive/master
 SET LUAWINMAKE_TOPFOLDER=luawinmake-master
 
 REM LuaRocks url and top folder name
-SET DL_LUAROCKS=https://github.com/keplerproject/luarocks/archive/v%LRVERSION%
-SET LUAROCKS_TOPFOLDER=luarocks-%LRVERSION%
+SET DL_LUAROCKS=http://luarocks.github.io/luarocks/releases/luarocks-%LRVERSION%-win32.zip
+SET LUAROCKS_TOPFOLDER=luarocks-%LRVERSION%-win32
 
 REM  ***************  NOTHING TO CUSTOMIZE BELOW  *********************
 
@@ -64,9 +64,8 @@ if not exist "%WORKDIR%luawinmake\*.*" (
 )
 
 if not exist "%WORKDIR%luarocks\*.*" (
-  "%WORKDIR%tools\wget" --no-check-certificate --output-document=luarocks%DL_SUFFIX% %DL_LUAROCKS%%DL_SUFFIX%
-  "%WORKDIR%tools\7z" x -y luarocks.tar.gz >NUL
-  "%WORKDIR%tools\7z" x -y luarocks.tar >NUL
+  "%WORKDIR%tools\wget" --no-check-certificate --output-document=luarocks.zip %DL_LUAROCKS%
+  "%WORKDIR%tools\7z" x -y luarocks.zip >NUL
   xcopy "%LUAROCKS_TOPFOLDER%\*.*" "%WORKDIR%luarocks\" /E /Y /Q
 ) else (
   echo Skipping LuaRocks download, directory already exists

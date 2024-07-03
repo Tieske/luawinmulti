@@ -219,20 +219,18 @@ if not [%VERSION51%]==[] (
   CALL etc\winmake installv "%TARGET%"
   CD ..\luarocks
   CALL install /P "%LRTARGET%" /LV 5.1 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
-  COPY "%LRTARGET%\luarocks.bat" "%TARGET%\bin\luarocks51.bat"
+  REM Backup original LuaRocks batch file
+  echo @REM This is the original LuaRocks-installer generated batch file  > "%TARGET%\bin\_luarocks51.bat"
+  type "%LRTARGET%\luarocks.bat"                                          >> "%TARGET%\bin\_luarocks51.bat"
+  REM Backup hardcoded.lua file
+  copy "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua" "%TARGET%hardcoded51.lua"
+  REM Create a new LuaRocks batchfile, that will restore hardcoded.lua before invoking the original batchfile
+  echo @ECHO OFF                                                  > "%TARGET%\bin\luarocks51.bat"
+  echo SETLOCAL                                                   >> "%TARGET%\bin\luarocks51.bat"
+  echo SET "HC_LR_V=51"                                           >> "%TARGET%\bin\luarocks51.bat"
+  echo CALL "%TARGET%\bin\_luarocks51.bat" --tree=system --lua-version=5.1 %%*  >> "%TARGET%\bin\luarocks51.bat"
+  echo exit /b %ERRORLEVEL%                                       >> "%TARGET%\bin\luarocks51.bat"
   CD ..
-  REM Now pulling a trick to insert a versioned path to the rocks directory into the
-  REM created 'site_config' file
-  SET INSERTLINE=site_config.LUAROCKS_ROCKS_SUBDIR=[[/lib/luarocks/rocks-5.1]]
-  SETLOCAL ENABLEDELAYEDEXPANSION
-  for /F "usebackq tokens=*" %%A in ("%LRTARGET%\lua\luarocks\site_config_5_1.lua") do (
-    echo %%A             >> "%LRTARGET%\lua\luarocks\site_config_5_1.lua2"
-    echo !INSERTLINE!    >> "%LRTARGET%\lua\luarocks\site_config_5_1.lua2"
-    SET INSERTLINE=--
-  )
-  copy "%LRTARGET%\lua\luarocks\site_config_5_1.lua2" "%LRTARGET%\lua\luarocks\site_config_5_1.lua"
-  del "%LRTARGET%\lua\luarocks\site_config_5_1.lua2"
-  ENDLOCAL
 )
 
 if not [%VERSION52%]==[] (
@@ -241,20 +239,18 @@ if not [%VERSION52%]==[] (
   CALL etc\winmake installv "%TARGET%"
   CD ..\luarocks
   CALL install /P "%LRTARGET%" /LV 5.2 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
-  COPY "%LRTARGET%\luarocks.bat" "%TARGET%\bin\luarocks52.bat"
+  REM Backup original LuaRocks batch file
+  echo @REM This is the original LuaRocks-installer generated batch file  > "%TARGET%\bin\_luarocks52.bat"
+  type "%LRTARGET%\luarocks.bat"                                          >> "%TARGET%\bin\_luarocks52.bat"
+  REM Backup hardcoded.lua file
+  copy "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua" "%TARGET%hardcoded52.lua"
+  REM Create a new LuaRocks batchfile, that will restore hardcoded.lua before invoking the original batchfile
+  echo @ECHO OFF                                                  > "%TARGET%\bin\luarocks52.bat"
+  echo SETLOCAL                                                   >> "%TARGET%\bin\luarocks52.bat"
+  echo SET "HC_LR_V=52"                                           >> "%TARGET%\bin\luarocks52.bat"
+  echo CALL "%TARGET%\bin\_luarocks52.bat" --tree=system --lua-version=5.2 %%*  >> "%TARGET%\bin\luarocks52.bat"
+  echo exit /b %ERRORLEVEL%                                       >> "%TARGET%\bin\luarocks52.bat"
   CD ..
-  REM Now pulling a trick to insert a versioned path to the rocks directory into the
-  REM created 'site_config' file
-  SET INSERTLINE=site_config.LUAROCKS_ROCKS_SUBDIR=[[/lib/luarocks/rocks-5.2]]
-  SETLOCAL ENABLEDELAYEDEXPANSION
-  for /F "usebackq tokens=*" %%A in ("%LRTARGET%\lua\luarocks\site_config_5_2.lua") do (
-    echo %%A             >> "%LRTARGET%\lua\luarocks\site_config_5_2.lua2"
-    echo !INSERTLINE!    >> "%LRTARGET%\lua\luarocks\site_config_5_2.lua2"
-    SET INSERTLINE=--
-  )
-  copy "%LRTARGET%\lua\luarocks\site_config_5_2.lua2" "%LRTARGET%\lua\luarocks\site_config_5_2.lua"
-  del "%LRTARGET%\lua\luarocks\site_config_5_2.lua2"
-  ENDLOCAL
 )
 
 if not [%VERSION53%]==[] (
@@ -263,20 +259,18 @@ if not [%VERSION53%]==[] (
   CALL etc\winmake installv "%TARGET%"
   CD ..\luarocks
   CALL install /P "%LRTARGET%" /LV 5.3 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
-  COPY "%LRTARGET%\luarocks.bat" "%TARGET%\bin\luarocks53.bat"
+  REM Backup original LuaRocks batch file
+  echo @REM This is the original LuaRocks-installer generated batch file  > "%TARGET%\bin\_luarocks53.bat"
+  type "%LRTARGET%\luarocks.bat"                                          >> "%TARGET%\bin\_luarocks53.bat"
+  REM Backup hardcoded.lua file
+  copy "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua" "%TARGET%hardcoded53.lua"
+  REM Create a new LuaRocks batchfile, that will restore hardcoded.lua before invoking the original batchfile
+  echo @ECHO OFF                                                  > "%TARGET%\bin\luarocks53.bat"
+  echo SETLOCAL                                                   >> "%TARGET%\bin\luarocks53.bat"
+  echo SET "HC_LR_V=53"                                           >> "%TARGET%\bin\luarocks53.bat"
+  echo CALL "%TARGET%\bin\_luarocks53.bat" --tree=system --lua-version=5.3 %%*  >> "%TARGET%\bin\luarocks53.bat"
+  echo exit /b %ERRORLEVEL%                                       >> "%TARGET%\bin\luarocks53.bat"
   CD ..
-  REM Now pulling a trick to insert a versioned path to the rocks directory into the
-  REM created 'site_config' file
-  SET INSERTLINE=site_config.LUAROCKS_ROCKS_SUBDIR=[[/lib/luarocks/rocks-5.3]]
-  SETLOCAL ENABLEDELAYEDEXPANSION
-  for /F "usebackq tokens=*" %%A in ("%LRTARGET%\lua\luarocks\site_config_5_3.lua") do (
-    echo %%A             >> "%LRTARGET%\lua\luarocks\site_config_5_3.lua2"
-    echo !INSERTLINE!    >> "%LRTARGET%\lua\luarocks\site_config_5_3.lua2"
-    SET INSERTLINE=--
-  )
-  copy "%LRTARGET%\lua\luarocks\site_config_5_3.lua2" "%LRTARGET%\lua\luarocks\site_config_5_3.lua"
-  del "%LRTARGET%\lua\luarocks\site_config_5_3.lua2"
-  ENDLOCAL
 )
 
 if not [%VERSION54%]==[] (
@@ -285,21 +279,25 @@ if not [%VERSION54%]==[] (
   CALL etc\winmake installv "%TARGET%"
   CD ..\luarocks
   CALL install /P "%LRTARGET%" /LV 5.4 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
-  COPY "%LRTARGET%\luarocks.bat" "%TARGET%\bin\luarocks54.bat"
+  REM Backup original LuaRocks batch file
+  echo @REM This is the original LuaRocks-installer generated batch file  > "%TARGET%\bin\_luarocks54.bat"
+  type "%LRTARGET%\luarocks.bat"                                          >> "%TARGET%\bin\_luarocks54.bat"
+  REM Backup hardcoded.lua file
+  copy "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua" "%TARGET%hardcoded54.lua"
+  REM Create a new LuaRocks batchfile, that will restore hardcoded.lua before invoking the original batchfile
+  echo @ECHO OFF                                                  > "%TARGET%\bin\luarocks54.bat"
+  echo SETLOCAL                                                   >> "%TARGET%\bin\luarocks54.bat"
+  echo SET "HC_LR_V=54"                                           >> "%TARGET%\bin\luarocks54.bat"
+  echo CALL "%TARGET%\bin\_luarocks54.bat" --tree=system --lua-version=5.4 %%*  >> "%TARGET%\bin\luarocks54.bat"
+  echo exit /b %ERRORLEVEL%                                       >> "%TARGET%\bin\luarocks54.bat"
   CD ..
-  REM Now pulling a trick to insert a versioned path to the rocks directory into the
-  REM created 'site_config' file
-  SET INSERTLINE=site_config.LUAROCKS_ROCKS_SUBDIR=[[/lib/luarocks/rocks-5.4]]
-  SETLOCAL ENABLEDELAYEDEXPANSION
-  for /F "usebackq tokens=*" %%A in ("%LRTARGET%\lua\luarocks\site_config_5_4.lua") do (
-    echo %%A             >> "%LRTARGET%\lua\luarocks\site_config_5_4.lua2"
-    echo !INSERTLINE!    >> "%LRTARGET%\lua\luarocks\site_config_5_4.lua2"
-    SET INSERTLINE=--
-  )
-  copy "%LRTARGET%\lua\luarocks\site_config_5_4.lua2" "%LRTARGET%\lua\luarocks\site_config_5_4.lua"
-  del "%LRTARGET%\lua\luarocks\site_config_5_4.lua2"
-  ENDLOCAL
 )
+
+REM update/patch hardcoded.lua files
+copy "%TARGET%hardcoded??.lua" "%TARGET%LuaRocks\lua\luarocks\core\"
+del "%TARGET%hardcoded??.lua"
+echo patching "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua"
+echo return require("luarocks.core.hardcoded"..os.getenv("HC_LR_V"))  > "%TARGET%\LuaRocks\lua\luarocks\core\hardcoded.lua"
 
 REM install setlua.bat utility
 copy .\scripts\setlua.bat "%TARGET%\bin"
