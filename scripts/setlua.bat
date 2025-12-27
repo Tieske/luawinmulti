@@ -5,6 +5,7 @@ IF [%1]==[51] goto VersionOK
 IF [%1]==[52] goto VersionOK
 IF [%1]==[53] goto VersionOK
 IF [%1]==[54] goto VersionOK
+IF [%1]==[55] goto VersionOK
 IF [%1]==[--help] GOTO Help
 IF [%1]==[-help] GOTO Help
 IF [%1]==[help] GOTO Help
@@ -24,7 +25,7 @@ echo  %~n0 [version]
 echo.
 echo Options:
 echo  version   Lua-version to be set as the unversioned default.
-echo            Valid values; 51, 52, 53, or 54
+echo            Valid values; 51, 52, 53, 54, or 55
 echo.
 exit /b
 
@@ -91,6 +92,10 @@ REM setup Lua paths for 5.4, defaults will do, but we need to add the user-tree
 set LUA_CPATH_5_4=%appdata%\luarocks\lib\lua\5.4\?.dll;;
 set LUA_PATH_5_4=%appdata%\luarocks\share\lua\5.4\?.lua;%appdata%\luarocks\share\lua\5.4\?\init.lua;;
 
+REM setup Lua paths for 5.5, defaults will do, but we need to add the user-tree
+set LUA_CPATH_5_5=%appdata%\luarocks\lib\lua\5.5\?.dll;;
+set LUA_PATH_5_5=%appdata%\luarocks\share\lua\5.5\?.lua;%appdata%\luarocks\share\lua\5.5\?\init.lua;;
+
 
 REM cleanup the paths in case of duplicate entries
 REM to prevent a mess when calling this multiple times
@@ -103,6 +108,8 @@ for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua LUA_CPATH_5_3') do set 
 for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua LUA_PATH_5_3') do set LUA_PATH_5_3=%%i
 for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua LUA_CPATH_5_4') do set LUA_CPATH_5_4=%%i
 for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua LUA_PATH_5_4') do set LUA_PATH_5_4=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua LUA_CPATH_5_5') do set LUA_CPATH_5_5=%%i
+for /f "tokens=*" %%i in ('lua %myownpath%clean_path.lua LUA_PATH_5_5') do set LUA_PATH_5_5=%%i
 
 echo Paths have been set up for Lua binaries and modules. Active version;
 where lua
