@@ -209,7 +209,9 @@ call scripts\download.bat %CLEAN%
 
 REM Temporary fix until upgrade to LuaRocks 3
 REM Fix LR 2.4.4 installer to support Lua 5.4
+REM rename luarocks\install.bat install.bat_old
 copy lr244_install.bat_54 luarocks\install.bat
+REM rename luarocks\src\luarocks\cfg.lua cfg.lua_old
 copy lr244_cfg.lua_54 luarocks\src\luarocks\cfg.lua
 
 REM Build the binaries
