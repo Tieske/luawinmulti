@@ -2,6 +2,7 @@
 /lua-5.2*
 /lua-5.3*
 /lua-5.4*
+/lua-5.5*
 /luarocks*
 /luawinmake*
 pax_global_header

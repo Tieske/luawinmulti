@@ -80,6 +80,13 @@ if [%1]==[--54] (
   SHIFT
   GOTO HandleParameter
 )
+if [%1]==[--55] (
+  set ALLVERSIONS=
+  set VERSION55=%1
+  if [%DEFAULT%]==[] SET DEFAULT=55
+  SHIFT
+  GOTO HandleParameter
+)
 if [%1]==[install] (
   if [%2]==[] (
     SHIFT
@@ -97,16 +104,16 @@ echo.
 exit /b 1
 
 :Help
-echo Commandline script to download and install Lua 5.1, 5.2, 5.3, and 5.4 with a LuaRocks installation for each.
+echo Commandline script to download and install Lua 5.1, 5.2, 5.3, 5.4, and 5.5 with a LuaRocks installation for each.
 echo A 'setlua' script is made available to setup the environment for each version.
 echo.
 echo Usage:
-echo   MAKE [--clean] [--cleantarget] [--nocompat] [--51] [--52] [--53] [--54] [--ms^|gcc] [install [^<location^>]]
+echo   MAKE [--clean] [--cleantarget] [--nocompat] [--51] [--52] [--53] [--54] [--55] [--ms^|gcc] [install [^<location^>]]
 echo.
-echo   --51,--52,--53,--54: specify the versions to install, default is to install
-echo                        all versions. Applies only to installing, all versions will be
-echo                        build independent of this option.
-echo                        The first version listed will be set as the unversioned default.
+echo   --51,--52,--53,--54,--55: specify the versions to install, default is to install
+echo                             all versions. Applies only to installing, all versions will be
+echo                             build independent of this option.
+echo                             The first version listed will be set as the unversioned default.
 echo   --clean            : removes downloaded and build artifacts, forcing a rebuild
 echo   --cleantarget      : removes the target directory before installing. NOTE: the LuaRocks
 echo                        installation will ALWAYS be removed, independent of this option!
@@ -141,6 +148,7 @@ if [%ALLVERSIONS%]==[TRUE] (
   SET VERSION52=--52
   SET VERSION53=--53
   SET VERSION54=--54
+  SET VERSION55=--55
   SET DEFAULT=51
 )
 
@@ -201,7 +209,9 @@ call scripts\download.bat %CLEAN%
 
 REM Temporary fix until upgrade to LuaRocks 3
 REM Fix LR 2.4.4 installer to support Lua 5.4
+REM rename luarocks\install.bat install.bat_old
 copy lr244_install.bat_54 luarocks\install.bat
+REM rename luarocks\src\luarocks\cfg.lua cfg.lua_old
 copy lr244_cfg.lua_54 luarocks\src\luarocks\cfg.lua
 
 REM Build the binaries
@@ -298,6 +308,28 @@ if not [%VERSION54%]==[] (
   )
   copy "%LRTARGET%\lua\luarocks\site_config_5_4.lua2" "%LRTARGET%\lua\luarocks\site_config_5_4.lua"
   del "%LRTARGET%\lua\luarocks\site_config_5_4.lua2"
+  ENDLOCAL
+)
+
+if not [%VERSION55%]==[] (
+  REM Install 55
+  CD lua-5.5
+  CALL etc\winmake installv "%TARGET%"
+  CD ..\luarocks
+  CALL install /P "%LRTARGET%" /LV 5.5 /LUA "%TARGET%" /F /NOADMIN /Q /NOREG %LRCOMPILER%
+  COPY "%LRTARGET%\luarocks.bat" "%TARGET%\bin\luarocks55.bat"
+  CD ..
+  REM Now pulling a trick to insert a versioned path to the rocks directory into the
+  REM created 'site_config' file
+  SET INSERTLINE=site_config.LUAROCKS_ROCKS_SUBDIR=[[/lib/luarocks/rocks-5.5]]
+  SETLOCAL ENABLEDELAYEDEXPANSION
+  for /F "usebackq tokens=*" %%A in ("%LRTARGET%\lua\luarocks\site_config_5_5.lua") do (
+    echo %%A             >> "%LRTARGET%\lua\luarocks\site_config_5_5.lua2"
+    echo !INSERTLINE!    >> "%LRTARGET%\lua\luarocks\site_config_5_5.lua2"
+    SET INSERTLINE=--
+  )
+  copy "%LRTARGET%\lua\luarocks\site_config_5_5.lua2" "%LRTARGET%\lua\luarocks\site_config_5_5.lua"
+  del "%LRTARGET%\lua\luarocks\site_config_5_5.lua2"
   ENDLOCAL
 )
 

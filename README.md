@@ -2,7 +2,7 @@ Multi-lua for Windows script
 ============================
 
 This batchfile will download, compile and configure a Lua installation with 
-versions 5.1, 5.2, 5.3, and 5.4 in parallel. Including the accompanying 
+versions 5.1, 5.2, 5.3, 5.4, and 5.5 in parallel. Including the accompanying 
 LuaRocks package manager for each version.
 
 Prerequisites
@@ -12,22 +12,32 @@ Make sure you have a compiler in your path;
  - MinGW in your system path (msys is not required)
  - for MS compilers, call `make.bat` from the Visual Studio (or Win SDK) commandshell
 
+Known issues
+============
+Luarocks doesn't work with the Lua 5.5 version. This project ships an older version
+of LuaRocks that is not compatible with Lua 5.5.
+
 Command
 =======
 
 ````
-Command:
-  MAKE [--clean] [--cleantarget] [--nocompat] [--51] [--52] [--53] [--54] [install [<location>]]
+Commandline script to download and install Lua 5.1, 5.2, 5.3, 5.4, and 5.5 with a LuaRocks installation for each.
+A 'setlua' script is made available to setup the environment for each version.
 
-  --51,--52,--53,--54: specify the versions to install, default is to install
-                       all versions. Applies only to installing, all versions will be
-                       build independent of this option.
-                       The first version listed will be set as the unversioned default.
+Usage:
+  MAKE [--clean] [--cleantarget] [--nocompat] [--51] [--52] [--53] [--54] [--55] [--ms|gcc] [install [<location>]]
+
+  --51,--52,--53,--54,--55: specify the versions to install, default is to install
+                            all versions. Applies only to installing, all versions will be
+                            build independent of this option.
+                            The first version listed will be set as the unversioned default.
   --clean            : removes downloaded and build artifacts, forcing a rebuild
   --cleantarget      : removes the target directory before installing. NOTE: the LuaRocks
                        installation will ALWAYS be removed, independent of this option!
   --nocompat         : build Lua without compatibility options. NOTE: this option
                        will not automatically clean. So clean when switching compatibility.
+  --ms|gcc           : force usage of either Microsoft (--ms) or gcc (--gcc) toolchain, if
+                       not provided it will be auto-detected.
   install <location> : will install (and build if necessary) the Lua versions. Default
                        location is 'C:\Lua'
 
@@ -63,9 +73,9 @@ What it does
 Usage
 =====
 
-Each Lua version will have its own executable; `lua51.exe`, `lua52.exe`, `lua53.exe`, and 
-`lua54.exe`. And for LuaRocks 4 batchfiles will be generated; `luarocks51.bat`,
-`luarocks52.bat`, `luarocks53.bat`, and `luarocks54.bat`.
+Each Lua version will have its own executable; `lua51.exe`, `lua52.exe`, `lua53.exe`, etc.
+And for LuaRocks multiple batchfiles will be generated; `luarocks51.bat`,
+`luarocks52.bat`, `luarocks53.bat`, etc.
 
 The luarocks batch files will be in the same directory as the lua executables, so
 only the Lua path has to be added to the system path.
@@ -84,6 +94,6 @@ location `c:\lua`).
 
 License
 =======
-Copyright 2015-2023, Thijs Schreijer.
+Copyright 2015-2025, Thijs Schreijer.
 MIT license for this project. Please note that other components are included
 which are covered by different licenses. See COPYING file for details.

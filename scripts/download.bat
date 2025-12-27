@@ -8,6 +8,7 @@ SET LUA51=lua-5.1.5
 SET LUA52=lua-5.2.4
 SET LUA53=lua-5.3.6
 SET LUA54=lua-5.4.8
+SET LUA55=lua-5.5.0
 SET LRVERSION=2.4.4
 
 REM Archive suffix to use for all downloads
@@ -35,6 +36,7 @@ echo start cleaning...
   RMDIR /S /Q "lua-5.2"
   RMDIR /S /Q "lua-5.3"
   RMDIR /S /Q "lua-5.4"
+  RMDIR /S /Q "lua-5.5"
   RMDIR /S /Q "luawinmake"
   RMDIR /S /Q "luarocks"
   echo done cleaning...
@@ -106,6 +108,15 @@ if not exist "%WORKDIR%lua-5.4\*.*" (
   xcopy "%LUA54%\*.*" "%WORKDIR%lua-5.4\" /E /Y /Q
 ) else (
   echo Skipping Lua 5.4 download, directory already exists
+)
+
+if not exist "%WORKDIR%lua-5.5\*.*" (
+  "%WORKDIR%tools\wget" --no-check-certificate --output-document=%LUA55%%DL_SUFFIX% %DL_PREFIX%%LUA55%%DL_SUFFIX%
+  "%WORKDIR%tools\7z" x -y %LUA55%.tar.gz >NUL
+  "%WORKDIR%tools\7z" x -y %LUA55%.tar >NUL
+  xcopy "%LUA55%\*.*" "%WORKDIR%lua-5.5\" /E /Y /Q
+) else (
+  echo Skipping Lua 5.5 download, directory already exists
 )
 
 REM The 'RMDIR' below might fail because of background processes like virus scanners etc having files open

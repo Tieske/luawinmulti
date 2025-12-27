@@ -71,3 +71,14 @@ if exist lua-5.4\src\lua54.dll (
   CD ..
 )
 
+REM Build 55
+if exist lua-5.5\src\lua55.dll (
+  echo Skipping Lua 5.5 build, binaries already exist
+) else (
+  XCOPY /E/Y/Q "%MAKE%" "lua-5.5"
+  CD lua-5.5
+  CALL etc\winmake clean
+  CALL etc\winmake %TOOLCHAIN% %COMPAT%
+  CD ..
+)
+
